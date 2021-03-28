@@ -4,6 +4,7 @@ import typing
 from betterconf.caster import AbstractCaster
 from betterconf.caster import DEFAULT_CASTER
 from betterconf.exceptions import VariableNotFoundError, ImpossibleToCastError
+from betterconf.providers import DEFAULT_PROVIDER
 
 _NO_DEFAULT = object()
 
@@ -11,24 +12,6 @@ _NO_DEFAULT = object()
 def is_callable(obj):
     """Checks that object is callable (needed for default values)"""
     return callable(obj)
-
-
-class AbstractProvider:
-    """Implement this class and pass to `field`"""
-
-    def get(self, name: str) -> typing.Any:
-        """Return a value or None"""
-        raise NotImplementedError()
-
-
-class EnvironmentProvider(AbstractProvider):
-    """Default provider. Gets vals from environment"""
-
-    def get(self, name: str) -> typing.Any:
-        return os.getenv(name)
-
-
-DEFAULT_PROVIDER = EnvironmentProvider()
 
 
 class Field:
