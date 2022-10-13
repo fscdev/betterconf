@@ -78,7 +78,7 @@ class ListCaster(AbstractCaster):
 
 
 class LoggingLogLevelCaster(ConstantCaster):
-    ABLE_TO_CAST = {
+    levels = {
         "CRITICAL": logging.CRITICAL,
         "FATAL": logging.FATAL,
         "ERROR": logging.ERROR,
@@ -88,6 +88,7 @@ class LoggingLogLevelCaster(ConstantCaster):
         "DEBUG": logging.DEBUG,
         "NOTSET": logging.NOTSET,
     }
+    ABLE_TO_CAST = {level.lower(): level_val for level, level_val in levels.items()}
 
 
 class LoguruLogLevelCaster(ConstantCaster):
